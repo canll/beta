@@ -4,6 +4,7 @@ import productList from "../../util";
 const initialState = {
   productList: productList.map((product) => ({ ...product, quantity: 0 })),
   quantity: 2,
+  total: 0,
 };
 
 const productCardSlice = createSlice({
@@ -22,7 +23,14 @@ const productCardSlice = createSlice({
       );
       discreaseItem.quantity -= 1;
     },
+    totalChange: (state) => {
+      let totalIncrease = 0;
+      state.productList.forEach((item) => {
+        totalIncrease += item.quantity;
+      });
+      state.total = totalIncrease;
+    },
   },
 });
-export const { increase, discrease } = productCardSlice.actions;
+export const { increase, discrease, totalChange } = productCardSlice.actions;
 export default productCardSlice.reducer;
